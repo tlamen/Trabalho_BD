@@ -1,0 +1,4 @@
+postgre_user: DB_2023_1
+postgre_password: BancoDeDados
+
+database = flask_db
