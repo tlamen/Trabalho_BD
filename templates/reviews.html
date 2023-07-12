@@ -23,22 +23,33 @@
         {% endfor %}
         </div>
     </div>
-    <div class="register">
+    <div class="review-form">
         <h1>{% block title %} Avalie essa turma! {% endblock %}</h1>
         <form method="post">
             <p>
-                <label for="nome">Nome:  </label>
-                <input type="text" name="nome"
-                    placeholder="Nome">
-                </input>
+                <label for="grade">Nota:</label>
+                <select name="grade">
+
+                    <option value=1 >1</option>
+                    <option value=2 >2</option>
+                    <option value=3 >3</option>
+                    <option value=4 >4</option>
+                    <option value=5 >5</option>
+                
+                </select>
             </p>
 
+            <label for="message">Mensagem:</label>
             <p>
-                <label for="curso">Curso: </label>
-                <input type="text" name="curso"
-                    placeholder="Curso">
-                </input>
+                
+                <textarea name="message"
+                  placeholder="Mensagem"
+                  rows="15"
+                  cols="60"
+                  ></textarea>
             </p>
+
+            <h4>Para concluir a review, efetue login por meio do seu email e senha:</h4>
 
             <p>
                 <label for="email">Email: </label>

@@ -95,7 +95,25 @@ def register():
 @app.route('/review/<int:CLASS_ID>', methods=('GET', 'POST'))
 def review(CLASS_ID):
     if request.method == 'POST':
-        pass
+        grade = int(request.form['grade'])
+        message = request.form['message']
+        email = request.form['email']
+        senha = request.form['password']
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
+        cur.execute(sql)
+        resgatada = cur.fetchone()
+        print(resgatada)
+        if senha == resgatada[1]:
+            cur.execute('INSERT INTO reviews (grade, message, student_id, class_id)'
+                        'VALUES (%s, %s, %s, %s)',
+                        (grade, message, resgatada[0], CLASS_ID))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('review', CLASS_ID=CLASS_ID))
 
     conn = get_db_connection()
 
