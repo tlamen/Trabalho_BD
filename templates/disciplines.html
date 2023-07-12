@@ -13,7 +13,9 @@
             <div class="sub-session">
                 <h4>Turmas:</h4>
                 {% for class in classes %}
-                    <p>{{ class[1] }} - {% for professor in professors %} {% if professor[0] == class[3] %} {{ professor[1] }} {% endif %} {% endfor %} </p>
+                    {% if class[2] == discipline[0] %}
+                        <p>{{ class[1] }} - {% for professor in professors %} {% if professor[0] == class[3] %} {{ professor[1] }} {% endif %} {% endfor %} </p>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

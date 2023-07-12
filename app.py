@@ -49,17 +49,19 @@ def professors():
     conn.close()
     return render_template('professors.html', professors=professors, departments=departments)
 
-@app.route('/disciplines')
-def disciplines():
+@app.route('/disciplines/<int:DEPARTMENT_ID>')
+def disciplines(DEPARTMENT_ID):
     conn = get_db_connection()
 
     cur = conn.cursor()
-    cur.execute('SELECT * FROM disciplines;')
+    sql = "SELECT * FROM disciplines WHERE department_id = " + str(DEPARTMENT_ID) + ";"
+    cur.execute(sql)
     disciplines = cur.fetchall()
     cur.close()
 
     cur = conn.cursor()
-    cur.execute('SELECT * FROM departments;')
+    sql = "SELECT * FROM departments WHERE department_id = " + str(DEPARTMENT_ID) + ";"
+    cur.execute(sql)
     departments = cur.fetchall()
     cur.close()
 
