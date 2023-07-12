@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import csv
 
 conn = psycopg2.connect(
         host="localhost",
@@ -30,16 +31,36 @@ cur.execute('CREATE TABLE departments (department_id serial PRIMARY KEY,'
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
 
+with open('./ofertas_sigaa/data/2023.1/departamentos_2023-1.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    line_count = 0
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+        else:
+            sql = "INSERT INTO departments (codigo, nome) VALUES (" + row[0] + " , '" + row[1] + "');"
+            cur.execute(sql)
+
 cur.execute('DROP TABLE IF EXISTS disciplines;')
 cur.execute('CREATE TABLE disciplines (discipline_id serial PRIMARY KEY,'
                                  'nome varchar (150) NOT NULL,'
-                                 'codigo INT NOT NULL UNIQUE,'
+                                 'codigo varchar(50) NOT NULL,'
                                  'department_id INT NOT NULL,'
                                  'CONSTRAINT fk_department '
                                     'FOREIGN KEY(department_id)' 
                                     'REFERENCES departments(department_id), '
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
+
+with open('./ofertas_sigaa/data/2023.1/disciplinas_2023-1.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    line_count = 0
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+        else:
+            sql = "INSERT INTO disciplines (codigo, nome, department_id) VALUES ('"+ row[0] + "' , '" + row[1] + "', (SELECT department_id FROM departments WHERE codigo = " + row[2] + "));"
+            cur.execute(sql)
 
 cur.execute('DROP TABLE IF EXISTS professors;')
 cur.execute('CREATE TABLE professors (professor_id serial PRIMARY KEY,'
@@ -53,7 +74,7 @@ cur.execute('CREATE TABLE professors (professor_id serial PRIMARY KEY,'
 
 cur.execute('DROP TABLE IF EXISTS classes;')
 cur.execute('CREATE TABLE classes (class_id serial PRIMARY KEY,'
-                                 'number varchar (3) NOT NULL,'
+                                 'number varchar (10) NOT NULL,'
                                  'discipline_id INT NOT NULL,'
                                  'professor_id INT NOT NULL,'
                                  'CONSTRAINT fk_discipline '
@@ -64,6 +85,22 @@ cur.execute('CREATE TABLE classes (class_id serial PRIMARY KEY,'
                                     'REFERENCES professors(professor_id), '
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
+
+professores_adicionados = []
+with open('./ofertas_sigaa/data/2023.1/turmas_2023-1.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    line_count = 0
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+        else:
+            if row[2] not in professores_adicionados:
+                sql = "INSERT INTO professors (nome, department_id) VALUES ('"+ row[2] + "' , (SELECT department_id FROM departments WHERE codigo = " + row[8] + "))"
+                cur.execute(sql)
+                professores_adicionados.append(row[2])
+            sql = "INSERT INTO classes (number, discipline_id, professor_id) VALUES ('"+ row[0] + "' , (SELECT discipline_id FROM disciplines WHERE codigo = '" + row[7] + "' LIMIT 1), (SELECT professor_id FROM professors WHERE nome = '" + row[2] + "' LIMIT 1));"
+            cur.execute(sql)
+            line_count += 1
 
 cur.execute('DROP TABLE IF EXISTS reviews;')
 cur.execute('CREATE TABLE reviews (review_id serial PRIMARY KEY,'
