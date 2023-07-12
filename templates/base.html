@@ -6,28 +6,51 @@
     <style>
         nav a {
             color: #d64161;
-            font-size: 3em;
-            margin-left: 50px;
+            font-size: 3rem;
             text-decoration: none;
         }
 
-        .book {
-            padding: 20px;
-            margin: 10px;
-            background-color: #f7f4f4;
+        nav {
+            display: flex;
+            background-color: lightgray;
+            padding: 10px;
+            width: 100%;
+            justify-content: space-around;
         }
 
-        .review {
-                margin-left: 50px;
-                font-size: 20px;
+        .department {
+            padding: 10px;
+            margin: 10px;
+            background-color: #f7f4f4;
+            width: 100%;
+        }
+
+        /* body {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        } */
+
+        .page-title {
+            font-size: 3rem;
+            text-decoration: none;
+        }
+
+        .sub-session {
+            background-color: lightpink;
         }
 
     </style>
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">FlaskApp</a>
-        <a href="#">About</a>
+        <a href="{{ url_for('index') }}">Avaliação</a>
+        <a href="{{ url_for('professors') }}">Professores</a>
+        <a href="{{ url_for('departments') }}">Departamentos</a>
+        <a href="#">Disciplinas</a>
+        <a href="#">Turmas</a>
     </nav>
     <hr>
     <div class="content">

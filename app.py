@@ -20,7 +20,59 @@ def index():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT * FROM departments;')
-    books = cur.fetchall()
+    departments = cur.fetchall()
     cur.close()
     conn.close()
-    return render_template('index.html', books=books)
+    return render_template('departments.html', departments=departments)
+
+@app.route('/departments')
+def departments():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM departments;')
+    departments = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('departments.html', departments=departments)
+
+@app.route('/professors')
+def professors():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM professors;')
+    professors = cur.fetchall()
+    cur.close()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM departments;')
+    departments = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('professors.html', professors=professors, departments=departments)
+
+@app.route('/disciplines')
+def disciplines():
+    conn = get_db_connection()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM disciplines;')
+    disciplines = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM departments;')
+    departments = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM classes;')
+    classes = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM professors;')
+    professors = cur.fetchall()
+    cur.close()
+
+    conn.close()
+    return render_template('disciplines.html', disciplines=disciplines, departments=departments, classes=classes, professors=professors)
+

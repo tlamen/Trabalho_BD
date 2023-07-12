@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="page-title">{% block title %} DEPARTAMENTOS {% endblock %}</h1>
+    {% for department in departments %}
+        <div class='department'>
+            <h3>#{{ department[0] }} - {{ department[2] }}</h3>
+            <i><p>n° {{ department[1] }}</p></i>
+        </div>
+    {% endfor %}
+{% endblock %}

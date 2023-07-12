@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="page-title">{% block title %} DISCIPLINAS {% endblock %}</h1>
+    {% for discipline in disciplines %}
+        <div class='department'>
+            <h3>{{ discipline[2] }} - {{ discipline[1] }}</h3>
+            {% for department in departments %}
+                {% if department[0] ==  discipline[3] %}
+                    <p>Departamento: {{department[2]}}</p>
+                {% endif %}
+            {% endfor %}
+            <div class="sub-session">
+                <h4>Turmas:</h4>
+                {% for class in classes %}
+                    <p>{{ class[1] }} - {% for professor in professors %} {% if professor[0] == class[3] %} {{ professor[1] }} {% endif %} {% endfor %} </p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

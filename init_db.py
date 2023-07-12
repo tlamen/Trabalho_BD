@@ -135,8 +135,8 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
                                  )
 
 # Execute a command: this creates a new table
-# cur.execute('DROP TABLE IF EXISTS books;')
-# cur.execute('CREATE TABLE books (id serial PRIMARY KEY,'
+# cur.execute('DROP TABLE IF EXISTS departments;')
+# cur.execute('CREATE TABLE departments (id serial PRIMARY KEY,'
 #                                  'title varchar (150) NOT NULL,'
 #                                  'author varchar (50) NOT NULL,'
 #                                  'pages_num integer NOT NULL,'
@@ -146,7 +146,7 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
 
 # # Insert data into the table
 
-# cur.execute('INSERT INTO books (title, author, pages_num, review)'
+# cur.execute('INSERT INTO departments (title, author, pages_num, review)'
 #             'VALUES (%s, %s, %s, %s)',
 #             ('A Tale of Two Cities',
 #              'Charles Dickens',
@@ -155,7 +155,7 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
 #             )
 
 
-# cur.execute('INSERT INTO books (title, author, pages_num, review)'
+# cur.execute('INSERT INTO departments (title, author, pages_num, review)'
 #             'VALUES (%s, %s, %s, %s)',
 #             ('Anna Karenina',
 #              'Leo Tolstoy',
