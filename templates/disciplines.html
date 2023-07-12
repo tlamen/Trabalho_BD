@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="page-title">{% block title %} DISCIPLINAS {% endblock %}</h1>
     {% for discipline in disciplines %}
-        <div class='department'>
+        <div class='professor'>
             <h3>{{ discipline[2] }} - {{ discipline[1] }}</h3>
             {% for department in departments %}
                 {% if department[0] ==  discipline[3] %}
