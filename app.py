@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
 
@@ -17,13 +17,7 @@ def get_db_connection():
 
 @app.route('/')
 def index():
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM departments;')
-    departments = cur.fetchall()
-    cur.close()
-    conn.close()
-    return render_template('departments.html', departments=departments)
+    return render_template('index.html')
 
 @app.route('/departments')
 def departments():
@@ -78,3 +72,23 @@ def disciplines(DEPARTMENT_ID):
     conn.close()
     return render_template('disciplines.html', disciplines=disciplines, departments=departments, classes=classes, professors=professors)
 
+@app.route('/register/', methods=('GET', 'POST'))
+def register():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        curso = request.form['curso']
+        email = request.form['email']
+        senha = request.form['password']
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO students (nome, curso, email, password)'
+                    'VALUES (%s, %s, %s, %s)',
+                    (nome, curso, email, senha))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('index'))
+
+    return render_template('register.html')
+    

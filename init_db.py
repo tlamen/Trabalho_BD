@@ -105,6 +105,7 @@ with open('./ofertas_sigaa/data/2023.1/turmas_2023-1.csv') as csv_file:
 cur.execute('DROP TABLE IF EXISTS reviews;')
 cur.execute('CREATE TABLE reviews (review_id serial PRIMARY KEY,'
                                  'message text NOT NULL,'
+                                 'grade int NOT NULL,'
                                  'student_id INT NOT NULL,'
                                  'professor_id INT NOT NULL,'
                                  'department_id INT NOT NULL,'
@@ -146,13 +147,14 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
 
 # # Insert data into the table
 
-# cur.execute('INSERT INTO departments (title, author, pages_num, review)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('A Tale of Two Cities',
-#              'Charles Dickens',
-#              489,
-#              'A great classic!')
-#             )
+cur.execute('INSERT INTO students (nome, curso, is_admin, email, password)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Pessoa administradora',
+             'Administração',
+             '1',
+             'admin@unb.com.br',
+             'Admin123')
+            )
 
 
 # cur.execute('INSERT INTO departments (title, author, pages_num, review)'

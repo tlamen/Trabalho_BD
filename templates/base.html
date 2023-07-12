@@ -12,8 +12,9 @@
 
         nav {
             display: flex;
+            padding-top: 3px;
+            padding-bottom: 3px;
             background-color: lightgray;
-            padding: 10px;
             width: 100%;
             justify-content: space-around;
         }
@@ -22,7 +23,7 @@
             padding: 10px;
             margin: 10px;
             background-color: #f7f4f4;
-            width: 100%;
+            width: 95%;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
@@ -32,7 +33,7 @@
             padding: 10px;
             margin: 15px;
             background-color: #f7f4f4;
-            width: 100%;
+            width: 95%;
         }
 
         .department h3 {
@@ -43,13 +44,9 @@
             width: 20%;
         }
 
-        /* body {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-        } */
+        body {
+            margin: 0;
+        }
 
         .page-title {
             font-size: 3rem;
@@ -61,6 +58,27 @@
             max-width: 90%;
         }
 
+        .class {
+            width: 90%;
+            padding: 7px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .register {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .register button {
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -68,8 +86,7 @@
         <a href="{{ url_for('index') }}">Avaliação</a>
         <a href="{{ url_for('professors') }}">Professores</a>
         <a href="{{ url_for('departments') }}">Departamentos</a>
-        <a href="#">Disciplinas</a>
-        <a href="#">Turmas</a>
+        <a href="{{ url_for('register') }}">Registrar</a>
     </nav>
     <hr>
     <div class="content">
