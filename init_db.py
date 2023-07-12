@@ -4,34 +4,94 @@ import psycopg2
 conn = psycopg2.connect(
         host="localhost",
         database="flask_db",
-        user=os.environ['DB_USERNAME'],
-        password=os.environ['DB_PASSWORD'])
+        # user=os.environ['DB_USERNAME'],
+        # password=os.environ['DB_PASSWORD'])
+        user= "bernardo",
+        password= "Bernardo2207")
+
 
 # Open a cursor to perform database operations
 cur = conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS students;')
-cur.execute('CREATE TABLE students (id serial PRIMARY KEY,'
+cur.execute('CREATE TABLE students (student_id serial PRIMARY KEY,'
                                  'nome varchar (50) NOT NULL,'
                                  'curso varchar (100) NOT NULL,'
-                                 'is_admin bit DEFAULT 0,'
+                                 "is_admin bit DEFAULT '0',"
                                  'email varchar(150) NOT NULL UNIQUE,'
                                  'password varchar(30) NOT NULL,'
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
 
 cur.execute('DROP TABLE IF EXISTS departments;')
-cur.execute('CREATE TABLE departments (id serial PRIMARY KEY,'
+cur.execute('CREATE TABLE departments (department_id serial PRIMARY KEY,'
                                  'nome varchar (150) NOT NULL,'
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
 
 cur.execute('DROP TABLE IF EXISTS disciplines;')
-cur.execute('CREATE TABLE disciplines (id serial PRIMARY KEY,'
+cur.execute('CREATE TABLE disciplines (discipline_id serial PRIMARY KEY,'
                                  'nome varchar (150) NOT NULL,'
-                                 'CONSTRAINT fk_department'
+                                 'department_id INT NOT NULL,'
+                                 'CONSTRAINT fk_department '
                                     'FOREIGN KEY(department_id)' 
-                                    'REFERENCES departments(department_id)'
+                                    'REFERENCES departments(department_id), '
+                                 'created_at date DEFAULT CURRENT_TIMESTAMP);'
+                                 )
+
+cur.execute('DROP TABLE IF EXISTS professors;')
+cur.execute('CREATE TABLE professors (professor_id serial PRIMARY KEY,'
+                                 'nome varchar (150) NOT NULL,'
+                                 'department_id INT NOT NULL,'
+                                 'CONSTRAINT fk_department '
+                                    'FOREIGN KEY(department_id)' 
+                                    'REFERENCES departments(department_id), '
+                                 'created_at date DEFAULT CURRENT_TIMESTAMP);'
+                                 )
+
+cur.execute('DROP TABLE IF EXISTS classes;')
+cur.execute('CREATE TABLE classes (class_id serial PRIMARY KEY,'
+                                 'number varchar (3) NOT NULL,'
+                                 'department_id INT NOT NULL,'
+                                 'professor_id INT NOT NULL,'
+                                 'CONSTRAINT fk_department '
+                                    'FOREIGN KEY(department_id) ' 
+                                    'REFERENCES departments(department_id), '
+                                 'CONSTRAINT fk_professor '
+                                    'FOREIGN KEY(professor_id) ' 
+                                    'REFERENCES professors(professor_id), '
+                                 'created_at date DEFAULT CURRENT_TIMESTAMP);'
+                                 )
+
+cur.execute('DROP TABLE IF EXISTS reviews;')
+cur.execute('CREATE TABLE reviews (review_id serial PRIMARY KEY,'
+                                 'message text NOT NULL,'
+                                 'student_id INT NOT NULL,'
+                                 'professor_id INT NOT NULL,'
+                                 'department_id INT NOT NULL,'
+                                 'CONSTRAINT fk_student '
+                                    'FOREIGN KEY(student_id)' 
+                                    'REFERENCES students(student_id),'
+                                 'CONSTRAINT fk_professor '
+                                    'FOREIGN KEY(professor_id)' 
+                                    'REFERENCES professors(professor_id),'
+                                 'CONSTRAINT fk_department '
+                                    'FOREIGN KEY(department_id)' 
+                                    'REFERENCES departments(department_id),'
+                                 'created_at date DEFAULT CURRENT_TIMESTAMP);'
+                                 )
+
+cur.execute('DROP TABLE IF EXISTS reports;')
+cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
+                                 'message text NOT NULL,'
+                                 'student_id INT NOT NULL,'
+                                 'review_id INT NOT NULL,'
+                                 'CONSTRAINT fk_students '
+                                    'FOREIGN KEY(student_id)' 
+                                    'REFERENCES students(student_id),'
+                                 'CONSTRAINT fk_review '
+                                    'FOREIGN KEY(review_id)' 
+                                    'REFERENCES reviews(review_id),'
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
 
