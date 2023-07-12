@@ -3,7 +3,25 @@
 {% block content %}
 <div class="reviews">
     <div class="class-info">
-        olar
+        <h2>{{ classe[0][2] }} - Turma {{ classe[0][1] }}</h2>
+        <h3>Professor {{ classe[0][3][:-6] }}</h3>
+
+        <h2>Avaliações:</h2>
+        <p>Nota média: {{ media[0][0] }} em {{ media[0][1] }} avaliação(ões)</p>
+
+        {% if not reviews %}
+            <div>Ainda não existem avaliações para essa turma.</div>
+        {% endif %}
+        <div class="reviews-container">
+        {% for review in reviews %}
+        
+            <div class="review-card">
+                <h4>{{ review[4] }}, estudante de {{ review[5] }} diz:</h4>
+                <p>{{review[2]}}</p>
+                <h4>Nota: {{review[3]}}</h4>
+            </div>
+        {% endfor %}
+        </div>
     </div>
     <div class="register">
         <h1>{% block title %} Avalie essa turma! {% endblock %}</h1>

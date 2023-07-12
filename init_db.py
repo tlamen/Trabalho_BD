@@ -152,7 +152,7 @@ cur.execute('INSERT INTO students (student_name, curso, is_admin, email, passwor
              'Admin123')
             )
 
-# Create a View for classes
+# Create Views
 
 cur.execute('CREATE VIEW CLASS_VIEW AS '
             'SELECT classes.class_id, classes.number, disciplines.discipline_name, professors.professor_name '
@@ -160,6 +160,11 @@ cur.execute('CREATE VIEW CLASS_VIEW AS '
             'WHERE classes.discipline_id = disciplines.discipline_id AND classes.professor_id = professors.professor_id;'
             )
 
+cur.execute('CREATE VIEW REVIEW_VIEW AS '
+            'SELECT reviews.review_id, reviews.class_id, reviews.message, reviews.grade, students.student_name, students.curso '
+            'FROM reviews, students '
+            'WHERE reviews.student_id = students.student_id;'
+            )
 
 # CREATE VIEW yourview AS
 #     SELECT table1.column1, 
