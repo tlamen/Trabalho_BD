@@ -92,3 +92,33 @@ def register():
 
     return render_template('register.html')
     
+@app.route('/review/<int:CLASS_ID>', methods=('GET', 'POST'))
+def review(CLASS_ID):
+    if request.method == 'POST':
+        pass
+
+    conn = get_db_connection()
+
+    cur = conn.cursor()
+    sql = "SELECT * FROM classes WHERE class_id = " + str(CLASS_ID) + ";"
+    cur.execute(sql)
+    classe = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM students;')
+    students = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM reviews;')
+    reviews = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM reports;')
+    reports = cur.fetchall()
+    cur.close()
+
+    conn.close()
+    return render_template('reviews.html', classe=classe, students=students, reviews=reviews, reports=reports)

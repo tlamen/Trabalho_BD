@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="reviews">
+    <div class="class-info">
+        olar
+    </div>
+    <div class="register">
+        <h1>{% block title %} Avalie essa turma! {% endblock %}</h1>
+        <form method="post">
+            <p>
+                <label for="nome">Nome:  </label>
+                <input type="text" name="nome"
+                    placeholder="Nome">
+                </input>
+            </p>
+
+            <p>
+                <label for="curso">Curso: </label>
+                <input type="text" name="curso"
+                    placeholder="Curso">
+                </input>
+            </p>
+
+            <p>
+                <label for="email">Email: </label>
+                <input type="text" name="email"
+                    placeholder="email">
+                </input>
+            </p>
+
+            <p>
+                <label for="password">Senha:</label>
+                <input type="text" name="password"
+                    placeholder="Senha">
+                </input>
+            </p>
+            <p>
+                <button type="submit">Submit</button>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}
