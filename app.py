@@ -1,9 +1,26 @@
-from flask import Flask
+import os
+import psycopg2
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+def get_db_connection():
+    conn = psycopg2.connect(
+        host="localhost",
+        database="flask_db",
+        # user=os.environ['DB_USERNAME'],
+        # password=os.environ['DB_PASSWORD'])
+        user= "bernardo",
+        password= "Senha123")
+    return conn
+
 
 @app.route('/')
-def hello():
-    return '<h1>Hello, World!</h1>'
-
+def index():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM departments;')
+    books = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('index.html', books=books)
