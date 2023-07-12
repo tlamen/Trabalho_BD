@@ -8,7 +8,7 @@ conn = psycopg2.connect(
         # user=os.environ['DB_USERNAME'],
         # password=os.environ['DB_PASSWORD'])
         user= "bernardo",
-        password= "Bernardo2207")
+        password= "Senha123")
 
 
 # Open a cursor to perform database operations
