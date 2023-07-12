@@ -82,7 +82,7 @@ def register():
 
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute('INSERT INTO students (nome, curso, email, password)'
+        cur.execute('INSERT INTO students (student_name, curso, email, password)'
                     'VALUES (%s, %s, %s, %s)',
                     (nome, curso, email, senha))
         conn.commit()
