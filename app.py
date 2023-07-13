@@ -175,10 +175,10 @@ def check_admin():
 
         conn = get_db_connection()
         cur = conn.cursor()
-        sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
+        sql = "SELECT student_id, password, is_admin FROM students WHERE email = '" + email + "';"
         cur.execute(sql)
         resgatada = cur.fetchone()
-        if senha == resgatada[1]:
+        if senha == resgatada[1] and resgatada[2] == '1':
             return redirect(url_for('reports'))
 
     return render_template('check_admin.html')
