@@ -91,6 +91,28 @@ def register():
         return redirect(url_for('index'))
 
     return render_template('register.html')
+
+@app.route('/reports')
+def reports():
+    conn = get_db_connection()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM reports;')
+    reports = cur.fetchall()
+    cur.close()
+    
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM students;')
+    students = cur.fetchall()
+    cur.close()
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM reviews;')
+    reviews = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    return render_template('reports.html', reports=reports, students=students, reviews=reviews)
     
 @app.route('/review/<int:CLASS_ID>', methods=('GET', 'POST'))
 def review(CLASS_ID):
@@ -105,7 +127,6 @@ def review(CLASS_ID):
         sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
         cur.execute(sql)
         resgatada = cur.fetchone()
-        print(resgatada)
         if senha == resgatada[1]:
             cur.execute('INSERT INTO reviews (grade, message, student_id, class_id)'
                         'VALUES (%s, %s, %s, %s)',
@@ -142,3 +163,20 @@ def review(CLASS_ID):
 
     conn.close()
     return render_template('reviews.html', classe=classe, students=students, reviews=reviews, media=media)
+
+@app.route('/check-admin/', methods=('GET', 'POST'))
+def check_admin():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['password']
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
+        cur.execute(sql)
+        resgatada = cur.fetchone()
+        print(resgatada)
+        if senha == resgatada[1]:
+            return redirect(url_for('reports'))
+
+    return render_template('check_admin.html')

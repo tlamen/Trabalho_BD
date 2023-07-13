@@ -174,8 +174,8 @@ cur.execute('INSERT INTO students (student_name, curso, is_admin, email, passwor
 
 # Reviews
 
-cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+cur.execute('INSERT INTO reviews (message, grade, student_id, class_id) '
+            'VALUES (%s, %s, %s, %s)',
             ('Muito boa!!',
              5,
              1,
@@ -183,7 +183,7 @@ cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
             )
 
 cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+            'VALUES (%s, %s, %s, %s)',
             ('Mais ou menos.',
              3,
              2,
@@ -191,7 +191,7 @@ cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
             )
 
 cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+            'VALUES (%s, %s, %s, %s)',
             ('Mais pra menos do que pra mais.',
              2,
              3,
@@ -201,21 +201,21 @@ cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
 # Reports
 
 cur.execute('INSERT INTO reports (message, student_id, review_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+            'VALUES (%s, %s, %s)',
             ('Discordo craque.',
              2,
              1)
             )
 
 cur.execute('INSERT INTO reports (message, student_id, review_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+            'VALUES (%s, %s, %s)',
             ('Achei paia.',
              3,
              1)
             )
 
 cur.execute('INSERT INTO reports (message, student_id, review_id)'
-            'VALUES (%s, %s, %s, %s, %s)',
+            'VALUES (%s, %s, %s)',
             ('Tem que tirar da plataforma.',
              3,
              2)
