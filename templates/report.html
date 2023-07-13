@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="page-title">{% block title %} Deseja reportar a review?  {% endblock %}</h1>
+    <div class="professor">
+        <h4>{{ review[0][4] }}, estudante de {{ review[0][5] }} diz:</h4>
+        <p>{{review[0][2]}}</p>
+        <h4>Nota: {{review[0][3]}}</h4>
+    </div>
+    <h2>Para reportar, faça login:</h2>
+    <div class="report-form">
+        <form method="post">
+            <p>
+                <label for="email">Email: </label>
+                <input type="text" name="email"
+                       placeholder="email">
+                </input>
+            </p>
+    
+            <p>
+                <label for="password">Senha:</label>
+                <input type="text" name="password"
+                       placeholder="Senha">
+                </input>
+            </p>
+    
+            <label for="message">Mensagem de denúncia:</label>
+            <p>
+                
+                <textarea name="message"
+                  placeholder="Mensagem"
+                  rows="15"
+                  cols="135"
+                  ></textarea>
+            </p>
+            <p>
+                <button type="submit">Submit</button>
+            </p>
+        </form>
+    </div>
+    
+{% endblock %}

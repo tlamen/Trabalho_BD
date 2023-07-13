@@ -175,8 +175,36 @@ def check_admin():
         sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
         cur.execute(sql)
         resgatada = cur.fetchone()
-        print(resgatada)
         if senha == resgatada[1]:
             return redirect(url_for('reports'))
 
     return render_template('check_admin.html')
+
+@app.route('/report/<int:REVIEW_ID>', methods=('GET', 'POST'))
+def report(REVIEW_ID):
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['password']
+        message = request.form['message']
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+        sql = "SELECT student_id, password FROM students WHERE email = '" + email + "';"
+        cur.execute(sql)
+        resgatada = cur.fetchone()
+        if senha == resgatada[1]:
+            cur.execute('INSERT INTO reports (message, student_id, review_id)'
+                        'VALUES (%s, %s, %s)',
+                        (message, resgatada[0], REVIEW_ID))
+            conn.commit()
+            cur.close()
+            conn.close()
+            return redirect(url_for('index'))
+        
+    conn = get_db_connection()
+    cur = conn.cursor()
+    sql = "SELECT * FROM REVIEW_VIEW WHERE review_id = " + str(REVIEW_ID) + ";"
+    cur.execute(sql)
+    review = cur.fetchall()
+
+    return render_template('report.html', review = review)

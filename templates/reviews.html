@@ -19,6 +19,7 @@
                 <h4>{{ review[4] }}, estudante de {{ review[5] }} diz:</h4>
                 <p>{{review[2]}}</p>
                 <h4>Nota: {{review[3]}}</h4>
+                <a href="{{ url_for('report', REVIEW_ID=review[0]) }}">Denunciar</a>
             </div>
         {% endfor %}
         </div>
