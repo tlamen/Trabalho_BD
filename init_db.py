@@ -141,7 +141,9 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
 #                                  'date_added date DEFAULT CURRENT_TIMESTAMP);'
 #                                  )
 
-# Insert data into the table
+# Insert data into tables
+
+# Users
 
 cur.execute('INSERT INTO students (student_name, curso, is_admin, email, password)'
             'VALUES (%s, %s, %s, %s, %s)',
@@ -150,6 +152,73 @@ cur.execute('INSERT INTO students (student_name, curso, is_admin, email, passwor
              '1',
              'admin@unb.com.br',
              'Admin123')
+            )
+
+cur.execute('INSERT INTO students (student_name, curso, is_admin, email, password)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Pessoa administradora 2',
+             'Administração',
+             '1',
+             'admin2@unb.com.br',
+             'Admin321')
+            )
+
+cur.execute('INSERT INTO students (student_name, curso, is_admin, email, password)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Pessoa estudante',
+             'Pedagogia',
+             '0',
+             'notadmin@unb.com.br',
+             'Senha123')
+            )
+
+# Reviews
+
+cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Muito boa!!',
+             5,
+             1,
+             1)
+            )
+
+cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Mais ou menos.',
+             3,
+             2,
+             1)
+            )
+
+cur.execute('INSERT INTO reviews (message, grade, student_id, class_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Mais pra menos do que pra mais.',
+             2,
+             3,
+             1)
+            )
+
+# Reports
+
+cur.execute('INSERT INTO reports (message, student_id, review_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Discordo craque.',
+             2,
+             1)
+            )
+
+cur.execute('INSERT INTO reports (message, student_id, review_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Achei paia.',
+             3,
+             1)
+            )
+
+cur.execute('INSERT INTO reports (message, student_id, review_id)'
+            'VALUES (%s, %s, %s, %s, %s)',
+            ('Tem que tirar da plataforma.',
+             3,
+             2)
             )
 
 # Create Views
