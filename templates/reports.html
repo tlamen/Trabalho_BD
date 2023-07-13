@@ -4,12 +4,12 @@
     <h1 class="page-title">{% block title %} DENÚNCIAS {% endblock %}</h1>
     {% for report in reports %}
         <div class='professor'>
-            <h3>#{{ report[0] }} -{% for student in students %} {% if student[0] == report[2] %} {{ student[1] }} {% endif %} {% endfor %} </h3>
+            <h3>#{{ report[0] }} -{% for student in students %} {% if student[0] == report[2] %} {{ student[1] }} REPORTOU: {% endif %} {% endfor %} </h3>
             <h4>Mensagem do reportador:</h4>
             <p>{{ report[1] }}</p>
-            <h4>Review:</h4>
             {% for review in reviews %}
                 {% if report[3] == review[0] %}
+                    <h4>Review feita por {{ students[review[3]][1] }}:</h4>
                     <p>{{review[1]}}</p>
                 {% endif %}
             {% endfor %}

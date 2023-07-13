@@ -131,16 +131,6 @@ cur.execute('CREATE TABLE reports (report_id serial PRIMARY KEY,'
                                  'created_at date DEFAULT CURRENT_TIMESTAMP);'
                                  )
 
-# Execute a command: this creates a new table
-# cur.execute('DROP TABLE IF EXISTS departments;')
-# cur.execute('CREATE TABLE departments (id serial PRIMARY KEY,'
-#                                  'title varchar (150) NOT NULL,'
-#                                  'author varchar (50) NOT NULL,'
-#                                  'pages_num integer NOT NULL,'
-#                                  'review text,'
-#                                  'date_added date DEFAULT CURRENT_TIMESTAMP);'
-#                                  )
-
 # Insert data into tables
 
 # Users
@@ -234,22 +224,6 @@ cur.execute('CREATE VIEW REVIEW_VIEW AS '
             'FROM reviews, students '
             'WHERE reviews.student_id = students.student_id;'
             )
-
-# CREATE VIEW yourview AS
-#     SELECT table1.column1, 
-#     table2.column2
-# FROM 
-# table1, table2 
-# WHERE table1.column1 = table2.column1;
-
-
-# cur.execute('INSERT INTO departments (title, author, pages_num, review)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('Anna Karenina',
-#              'Leo Tolstoy',
-#              864,
-#              'Another great classic!')
-#             )
 
 conn.commit()
 
