@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="register">
+    <h1>{% block title %} Deseja excluir a review? {% endblock %}</h1>
+    
+    <div class="professor">
+        <h4>{{ review[0][4] }}, estudante de {{ review[0][5] }} diz:</h4>
+        <p>{{review[0][2]}}</p>
+        <h4>Nota: {{review[0][3]}}</h4>
+    </div>
+    <form method="post">
+        <p>
+            <button type="submit">SIM</button>
+        </p>
+    </form>
+</div>
+{% endblock %}

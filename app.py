@@ -92,8 +92,11 @@ def register():
 
     return render_template('register.html')
 
-@app.route('/reports')
+@app.route('/reports', methods=('GET', 'POST'))
 def reports():
+    if request.method == 'POST':
+        nome = request.form['value']
+        print(nome)
     conn = get_db_connection()
 
     cur = conn.cursor()
@@ -197,9 +200,9 @@ def report(REVIEW_ID):
                         'VALUES (%s, %s, %s)',
                         (message, resgatada[0], REVIEW_ID))
             conn.commit()
-            cur.close()
-            conn.close()
-            return redirect(url_for('index'))
+        cur.close()
+        conn.close()
+        return redirect(url_for('index'))
         
     conn = get_db_connection()
     cur = conn.cursor()
@@ -208,3 +211,29 @@ def report(REVIEW_ID):
     review = cur.fetchall()
 
     return render_template('report.html', review = review)
+
+@app.route('/exclude-review/<int:REVIEW_ID>', methods=('GET', 'POST'))
+def exclude_review(REVIEW_ID):
+    if request.method == 'POST':
+        conn = get_db_connection()
+
+        cur = conn.cursor()
+        sql = "DELETE FROM reports WHERE review_id = " + str(REVIEW_ID) + ";"
+        cur.execute(sql)
+        cur.close()
+
+        cur = conn.cursor()
+        sql = "DELETE FROM reviews WHERE review_id = " + str(REVIEW_ID) + ";"
+        cur.execute(sql)
+        conn.commit()
+        cur.close()
+        conn.close()
+        return redirect(url_for('index'))
+        
+    conn = get_db_connection()
+    cur = conn.cursor()
+    sql = "SELECT * FROM REVIEW_VIEW WHERE review_id = " + str(REVIEW_ID) + ";"
+    cur.execute(sql)
+    review = cur.fetchall()
+
+    return render_template('exclude_review.html', review = review)

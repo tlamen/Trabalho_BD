@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="page-title">{% block title %} DENÚNCIAS {% endblock %}</h1>
     {% for report in reports %}
-        <div class='professor'>
+        <div class='professor' name="value" value="{{report[3]}}">
             <h3>#{{ report[0] }} -{% for student in students %} {% if student[0] == report[2] %} {{ student[1] }} REPORTOU: {% endif %} {% endfor %} </h3>
             <h4>Mensagem do reportador:</h4>
             <p>{{ report[1] }}</p>
@@ -13,6 +13,7 @@
                     <p>{{review[1]}}</p>
                 {% endif %}
             {% endfor %}
+            <a href="{{ url_for('exclude_review', REVIEW_ID = report[3])}}">Excluir</a>
         </div>
     {% endfor %}
 {% endblock %}
