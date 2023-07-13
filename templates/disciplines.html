@@ -1,20 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="page-title">{% block title %} DISCIPLINAS {% endblock %}</h1>
+    <h1 class="page-title">{% block title %} DISCIPLINAS: </h1>
+    <h2>Departamento - {{departments[0][2]}} {% endblock %}</h2>
     {% for discipline in disciplines %}
         <div class='professor'>
             <h3>{{ discipline[2] }} - {{ discipline[1] }}</h3>
-            {% for department in departments %}
-                {% if department[0] ==  discipline[3] %}
-                    <p>Departamento: {{department[2]}}</p>
-                {% endif %}
-            {% endfor %}
             <div class="sub-session">
                 <h4>Turmas:</h4>
                 {% for class in classes %}
                     {% if class[2] == discipline[0] %}
-                        <div class="class"> {{ class[1] }} - {% for professor in professors %} {% if professor[0] == class[3] %} {{ professor[1] }} {% endif %} {% endfor %} <a href="#">Avaliações</a> </div>
+                        <div class="class"> {{ class[1] }} - {% for professor in professors %} {% if professor[0] == class[3] %} {{ professor[1] }} {% endif %} {% endfor %} <a href="{{ url_for('review', CLASS_ID = class[0]) }}">Avaliações</a> </div>
                     {% endif %}
                 {% endfor %}
             </div>
